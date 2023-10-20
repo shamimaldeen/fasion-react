@@ -21,6 +21,7 @@ const Login = () => {
         setIsloading(true);
         axios.post(`${Constants.BASE_URL}/login`,input)
             .then(res=> {
+
                 localStorage.name = res.data.name;
                 localStorage.email = res.data.email;
                 localStorage.phone = res.data.phone;
@@ -47,8 +48,9 @@ const Login = () => {
                                <div className="row justify-content-center">
                                    <div className="col-lg-5">
                                        <div className="card shadow-lg border-0 rounded-lg mt-5">
-                                           <div className="card-header"><h3
-                                               className="text-center font-weight-light my-4">Login</h3></div>
+                                           <div className="card-header">
+                                               <h3 className="text-center font-weight-light my-4">Login</h3>
+                                           </div>
                                            <div className="card-body">
                                                <form>
                                                    <div className={errors.email != undefined ? 'form-floating mb-3 is-invalid' : 'form-floating mb-3' }>
@@ -82,9 +84,6 @@ const Login = () => {
                                    <div style={{textAlign:"center"}}>Copyright &copy; Fasion Shop
                                    <div style={{float:"right"}}><h6>Developed by <strong>Shamim Al-Deen</strong></h6></div>
                                    </div>
-
-
-
                                </div>
                            </div>
                        </footer>

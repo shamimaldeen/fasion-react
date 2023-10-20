@@ -6,7 +6,6 @@ const GlobalFunction = {
         localStorage.removeItem('role_id');
         localStorage.removeItem('token');
         localStorage.removeItem('photo');
-
     }
 }
 export default GlobalFunction;

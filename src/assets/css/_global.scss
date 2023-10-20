@@ -1,0 +1,39 @@
+body{
+  font-family: Ubuntu,serif;
+  overflow-x: hidden;
+}
+.bg-theme{
+  background-image: linear-gradient(90deg,$theme-color,$theme-color-light);
+}
+a{
+  text-decoration: none;
+}
+.text-justify{
+  text-align: justify;
+}
+.zoom-able{
+ transition: all .3s ease-in-out;
+  &:hover{
+    transform: scale(1.05);
+  }
+}
+.aspect-two{
+  aspect-ratio: 1/1.25 !important;
+}
+.aspect-one{
+  aspect-ratio: 1/1 !important;
+  height: 140px;
+  width: auto;
+}
+
+.theme-button{
+  background: #0a58ca;
+  a{
+    color: #dde2e8;
+  }
+  &:hover{
+    a{
+      color: white;
+    }
+  }
+}

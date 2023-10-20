@@ -5,13 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import axios from "axios";
 import GlobalFunction from "./GlobalFunction";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 
       // Start Interceptor Execute
     axios.interceptors.request.use(function (config) {
-        if ( localStorage.token !== undefined){
+        if ( localStorage.token != undefined){
             config.headers['Authorization'] = `Bearer ${localStorage.token}`
         }
         return config;
