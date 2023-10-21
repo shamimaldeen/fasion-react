@@ -31,18 +31,18 @@ const AddCategory = () => {
     }
 
 
-    const handleCategoryCreate=(e)=>{
-        e.preventDefault();
+    const handleCategoryCreate=()=>{
+
         setIsloading(true);
-        axios.post(`${Constants.BASE_URL}/category/create`,input)
+        axios.post(`${Constants.BASE_URL}/category`,input)
             .then(res=> {
                 setIsloading(false);
-                console.log(res.data);
+                console.log(res.data)
             }).catch(errors =>{
-            setIsloading(false);
-            if (errors.response.status == 422){
+               setIsloading(false);
+
                 setErrors(errors.response.data.errors);
-            }
+
         });
     }
     return (
@@ -91,7 +91,10 @@ const AddCategory = () => {
                                          <label className={'w-100'}>
                                              <h6>Status</h6>
                                              <select className={errors.status != undefined ? "form-select is-invalid" : "form-select"}
-                                                     name={"status"} onChange={handleInput}   placeholder={'Enter category status'} >
+                                                     name={"status"}
+                                                     value={input.status}
+                                                     onChange={handleInput}
+                                                     placeholder={'Enter category status'} >
                                                  <option value={1} > Active</option>
                                                  <option value={0} > Inactive</option>
                                              </select>
@@ -130,7 +133,7 @@ const AddCategory = () => {
                                          <div className="row justify-content-center">
                                              <div className="col-md-4">
                                                  <div className="d-grid">
-                                                     <Button type="submit" className={'btn submit-button'} onClick={handleCategoryCreate} dangerouslySetInnerHTML={{__html: isLoading ? ' <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...' : 'Save'}}  />
+                                                     <Button type="submit" className={'btn submit-button'} onClick={handleCategoryCreate} dangerouslySetInnerHTML={{__html: isLoading ? '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...' : 'Save'}}  />
                                                  </div>
                                              </div>
 
