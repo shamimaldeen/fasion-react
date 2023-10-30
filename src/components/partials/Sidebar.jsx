@@ -22,7 +22,7 @@ const Sidebar = () => {
                                  data-bs-parent="#sidenavAccordion">
                                 <nav className="sb-sidenav-menu-nested nav">
                                     <Link className="nav-link" to="/category/create">Add Category</Link>
-                                    <a className="nav-link" href="layout-static.html">Category List</a>
+                                    <Link className="nav-link" to="/category">Category List</Link>
                                 </nav>
                             </div>
                             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse"

@@ -37,3 +37,22 @@ a{
     }
   }
 }
+
+.my-table{
+  font-size: 14px;
+  th,td{
+    vertical-align: middle;
+    text-align: center;
+  }
+
+}
+.loader{
+  width: 100%;
+  height: 250px;
+  position: relative;
+  img{
+    position:absolute ;
+    margin-left: 400%;
+
+  }
+}

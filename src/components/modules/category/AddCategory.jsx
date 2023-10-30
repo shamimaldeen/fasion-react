@@ -6,6 +6,7 @@ import axios from "axios";
 import Constants from "../../../Constants";
 import {Alert} from "react-bootstrap";
 import Swal from "sweetalert2";
+import CardHeader from "../../partials/CardHeader";
 
 const AddCategory = () => {
 
@@ -37,9 +38,8 @@ const AddCategory = () => {
         reader.readAsDataURL(file)
     }
 
-    const  productForm = async ()=>
+    const  categoryForm = async ()=>
     {
-
         const  formData = new FormData();
         formData.append('name',input.name);
         formData.append('slug',input.slug);
@@ -47,7 +47,6 @@ const AddCategory = () => {
         formData.append('status',input.status);
         formData.append('description',input.description);
         formData.append('photo',input.photo);
-
         await axios.post(`${Constants.BASE_URL}/category`,formData, {
             headers: {'Content-Type': 'multipart/form-data' },
         }).then(response=> {
@@ -79,7 +78,7 @@ const AddCategory = () => {
 
     const  handleCategoryCreate = async (e)=>{
         e.preventDefault();
-        await productForm();
+        await categoryForm();
     }
 
 
@@ -92,11 +91,7 @@ const AddCategory = () => {
                     {success && <Alert className="col-sm-3 offset-3"  variant="danger">{success}</Alert>}
                     <div className="card">
                         <div className="card-header">
-                            <div className="d-flex justify-content-between align-items-center ">
-                                <h4>Add Category</h4>
-                                <Button className={'btn theme-button'} ><Link to=""><i
-                                    className="fa-solid fa-list"></i> Category List</Link> </Button>
-                            </div>
+                            <CardHeader title={'Add Category'} link={'/category'} button_text={'Category List'} icon={'fa-list'} />
                         </div>
                         <div className="card-body">
                             <form onSubmit={handleCategoryCreate}>
