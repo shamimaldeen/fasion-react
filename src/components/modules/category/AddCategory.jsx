@@ -61,7 +61,6 @@ const AddCategory = () => {
               })
             navigate('/category');
             }).catch(errors =>{
-                console.log(errors);
                setIsloading(false);
                 Swal.fire({
                 position: 'top-end',

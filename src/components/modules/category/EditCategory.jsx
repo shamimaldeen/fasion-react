@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 
 const EditCategory = () => {
      const params = useParams();
-    const [input , setInput] = useState({});
+    const [input , setInput] = useState([]);
     const [image , setImage] = useState('');
     const [img , setImg] = useState('');
     const [errors , setErrors] = useState([]);
@@ -50,39 +50,6 @@ const EditCategory = () => {
     }
 
 
-
-    // const  handleCategoryUpdate = ()=>{
-    //     const  $data = {
-    //         "name" : input.name,
-    //         "slug" : input.slug,
-    //         "serial" : input.serial,
-    //         "status" : input.status,
-    //         "description" : input.description,
-    //         "old_photo" : input.old_photo,
-    //         "photo" : img,
-    //     }
-    //
-    //     axios.put(`${Constants.BASE_URL}/category/${params.id}`,$data, {
-    //     }).then(response=> {
-    //         setIsloading(true);
-    //         Swal.fire({
-    //             position: 'top-end',
-    //             icon: response.data.cls,
-    //             title: response.data.msg,
-    //             showConfirmButton: false,
-    //             toast:true,
-    //             timer: 1500
-    //         })
-    //
-    //     }).catch(errors =>{
-    //         setIsloading(true);
-    //
-    //         setErrors(errors.response.data.errors);
-    //         // navigate('/category/create');
-    //     });
-    // }
-
-
     const  categoryUpdateForm = async ()=>
     {
 
@@ -95,9 +62,10 @@ const EditCategory = () => {
         formData.append('old_photo',input.old_photo);
         formData.append('photo',img);
         formData.append('id',input.id);
+        formData.append('_method','PUT');
 
-        await axios.put(`${Constants.BASE_URL}/category/${params.id}`,formData, {
-
+        await axios.post(`${Constants.BASE_URL}/category/${params.id}`,formData, {
+            headers: {'Content-Type': 'multipart/form-data' },
         }).then(response=> {
             setIsloading(false);
             Swal.fire({
@@ -108,7 +76,7 @@ const EditCategory = () => {
                 toast:true,
                 timer: 1500
             })
-
+            navigate('/category');
         }).catch(errors =>{
             setIsloading(false);
             Swal.fire({
@@ -120,7 +88,7 @@ const EditCategory = () => {
                 timer: 1500
             })
             setErrors(errors.response.data.errors);
-            // navigate('/category/create');
+             navigate('/category/create');
         });
     }
 
