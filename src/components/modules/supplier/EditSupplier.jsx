@@ -8,27 +8,27 @@ import axios from "axios";
 import Constants from "../../../Constants";
 import Swal from "sweetalert2";
 
-const EditCategory = () => {
-     const params = useParams();
+const EditSupplier = () => {
+    const params = useParams();
     const [input , setInput] = useState([]);
-    const [image , setImage] = useState('');
+    const [logo , setLogo] = useState('');
     const [img , setImg] = useState('');
     const [errors , setErrors] = useState([]);
     const [success , setSuccess] = useState(null);
     const [isLoading , setIsloading] = useState(false);
     const navigate = useNavigate();
 
-  const getCategoryData = ()=>{
-       axios.get(`${Constants.BASE_URL}/category/${params.id}`).then(res=> {
-           setInput(res.data.data);
-           setImage(res.data.data.old_photo);
-      })
+    const getBrandData = ()=>{
+        axios.get(`${Constants.BASE_URL}/brand/${params.id}`).then(res=> {
+            setInput(res.data.data);
+            setLogo(res.data.data.old_logo);
+        })
 
-  }
+    }
 
-  useEffect(()=>{
-      getCategoryData();
-  },[])
+    useEffect(()=>{
+        getBrandData();
+    },[])
     const updateHandleInput = (e)=>{
         if (e.target.name == 'name'){
             let  slug = e.target.value;
@@ -39,18 +39,18 @@ const EditCategory = () => {
         setInput(prevState => ({...prevState,[e.target.name] : e.target.value }));
     }
 
-    const handlePhoto =(e)=>{
+    const handleLogo =(e)=>{
         let file = e.target.files[0];
         setImg(e.target.files[0]);
         let reader = new FileReader();
         reader.onloadend =()=>{
-            setImage(reader.result);
+            setLogo(reader.result);
         }
         reader.readAsDataURL(file)
     }
 
 
-    const  categoryUpdateForm = async ()=>
+    const  brandUpdateForm = async ()=>
     {
 
         const  formData = new FormData();
@@ -59,12 +59,12 @@ const EditCategory = () => {
         formData.append('serial',input.serial);
         formData.append('status',input.status);
         formData.append('description',input.description);
-        formData.append('old_photo',input.old_photo);
-        formData.append('photo',img);
+        formData.append('old_logo',input.old_logo);
+        formData.append('logo',img);
         formData.append('id',input.id);
         formData.append('_method','PUT');
 
-        await axios.post(`${Constants.BASE_URL}/category/${params.id}`,formData, {
+        await axios.post(`${Constants.BASE_URL}/brand/${params.id}`,formData, {
             headers: {'Content-Type': 'multipart/form-data' },
         }).then(response=> {
             setIsloading(false);
@@ -76,7 +76,7 @@ const EditCategory = () => {
                 toast:true,
                 timer: 1500
             })
-            navigate('/category');
+            navigate('/brand');
         }).catch(errors =>{
             setIsloading(false);
             Swal.fire({
@@ -88,33 +88,33 @@ const EditCategory = () => {
                 timer: 1500
             })
             setErrors(errors.response.data.errors);
-            navigate('/category');
+            navigate('/brand');
         });
     }
 
-    const  handleCategoryUpdate = async (e)=>{
+    const  handleBrandUpdate = async (e)=>{
         e.preventDefault();
-        await categoryUpdateForm();
+        await brandUpdateForm();
     }
 
     return (
         <>
-            <Breadcrumb title={"Update Category"} />
+            <Breadcrumb title={"Update Brand"} />
             <div className="row">
                 <div className="col-md-12">
                     {success && <Alert className="col-sm-3 offset-3"  variant="danger">{success}</Alert>}
                     <div className="card">
                         <div className="card-header">
-                            <CardHeader title={'Update Category'} link={'/category'} button_text={'Category List'} icon={'fa-list'} />
+                            <CardHeader title={'Update Brand'} link={'/brand'} button_text={'Brand List'} icon={'fa-list'} />
                         </div>
                         <div className="card-body">
-                            <form onSubmit={handleCategoryUpdate}>
+                            <form onSubmit={handleBrandUpdate}>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <label className={'w-100'}>
                                             <h6>Name</h6>
                                             <input className={errors.name != undefined ? "form-control is-invalid" : "form-control"}
-                                                   type="text" name={"name"} onChange={updateHandleInput} value={input.name} placeholder={'Enter category name'} required />
+                                                   type="text" name={"name"} onChange={updateHandleInput} value={input.name} placeholder={'Enter brand name'} required />
                                             <p style={{color:"red"}}>{errors.name != undefined ? errors.name[0] : null}</p>
                                         </label>
                                     </div>
@@ -123,7 +123,7 @@ const EditCategory = () => {
                                         <label className={'w-100'}>
                                             <h6>Slug</h6>
                                             <input className={errors.slug != undefined ? "form-control is-invalid" : "form-control"}
-                                                   type="text"  name={"slug"} onChange={updateHandleInput} value={input.slug}  placeholder={'Enter category slug'} />
+                                                   type="text"  name={"slug"} onChange={updateHandleInput} value={input.slug}  placeholder={'Enter brand slug'} />
                                             <p style={{color:"red"}}>{errors.slug != undefined ? errors.slug[0] : null}</p>
                                         </label>
                                     </div>
@@ -131,7 +131,7 @@ const EditCategory = () => {
                                         <label className={'w-100'}>
                                             <h6>Serial</h6>
                                             <input className={errors.serial != undefined ? "form-control is-invalid" : "form-control"}
-                                                   type="number"  name={"serial"} onChange={updateHandleInput} value={input.serial}  placeholder={'Enter category serial'} required />
+                                                   type="number"  name={"serial"} onChange={updateHandleInput} value={input.serial}  placeholder={'Enter brand serial'} required />
                                             <p style={{color:"red"}}>{errors.serial != undefined ? errors.serial[0] : null}</p>
                                         </label>
                                     </div>
@@ -143,7 +143,7 @@ const EditCategory = () => {
                                                     name={"status"}
                                                     value={input.status}
                                                     onChange={updateHandleInput}
-                                                    placeholder={'Enter category status'} >
+                                                    placeholder={'Enter brand status'} >
                                                 <option value={1} > Active</option>
                                                 <option value={0} > Inactive</option>
                                             </select>
@@ -161,16 +161,16 @@ const EditCategory = () => {
 
                                     <div className="col-md-6">
                                         <label className={'w-100'}>
-                                            <h6>Photo</h6>
-                                            <input className={errors.photo != undefined ? "form-control is-invalid" : "form-control"}
-                                                   type="file"  name={"photo"} onChange={handlePhoto}   placeholder={'Enter category photo'} />
-                                            <p style={{color:"red"}}>{errors.photo != undefined ? errors.photo[0] : null}</p>
+                                            <h6>Logo</h6>
+                                            <input className={errors.logo != undefined ? "form-control is-invalid" : "form-control"}
+                                                   type="file"  name={"logo"} onChange={handleLogo}   placeholder={'Enter Brand logo'} />
+                                            <p style={{color:"red"}}>{errors.logo != undefined ? errors.logo[0] : null}</p>
                                         </label>
-                                        { image ?
+                                        { logo ?
                                             <div className="row">
                                                 <div className="col-md-6">
                                                     <div className="photo-preview mt-3">
-                                                        <img src={image} alt={'photo-preview'} className={'img-thumbnail aspect-one'} />
+                                                        <img src={logo} alt={'photo-preview'} className={'img-thumbnail aspect-one'} />
                                                     </div>
                                                 </div>
 
@@ -201,4 +201,4 @@ const EditCategory = () => {
     );
 };
 
-export default EditCategory;
+export default EditSupplier;
