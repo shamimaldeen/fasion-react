@@ -13,11 +13,12 @@ import Loader from "../../partials/Loader";
 import NoDataFound from "../../partials/NoDataFound";
 import ViewSupplier from "./ViewSupplier";
 
+
+
+
 const SupplierList = () => {
 
     const [input , setInput] = useState({
-        'status' : 1,
-        'direction':'asc',
         'per_page':'10',
         'search':'',
     });
@@ -29,14 +30,15 @@ const SupplierList = () => {
     const [activePage,setActivePage] = useState(1);
     const [suppliers , setSuppliers] = useState([]);
     const [isLoading , setIsloading] = useState(false);
-
     const handleInput = (e)=>{
         setInput(prevState => ({...prevState,[e.target.name] : e.target.value }));
     }
 
     const handleViewSupplier = (supplier)=>{
+        setIsloading(true);
         setSupplier(supplier)
         setModalShow(true);
+        setIsloading(false);
     }
 
     const handleSupplierDelete = (id)=>{
@@ -73,7 +75,7 @@ const SupplierList = () => {
     },[])
     const getSupplierData =(pageNumber=1)=>{
         setIsloading(true);
-        axios.get(`${Constants.BASE_URL}/supplier?page=${pageNumber}&search=${input.search}&status=${input.status}&direction=${input.direction}&per_page=${input.per_page}`)
+        axios.get(`${Constants.BASE_URL}/supplier?page=${pageNumber}&search=${input.search}&per_page=${input.per_page}`)
             .then(res=> {
                 setSuppliers(res.data.data);
                 setItemsCountPerPage(res.data.meta.per_page);
@@ -85,6 +87,7 @@ const SupplierList = () => {
             setIsloading(false);
         });
     }
+
     return (
         <>
             <Breadcrumb title={"Supplier List"} />
@@ -97,33 +100,15 @@ const SupplierList = () => {
                         <div className="card-body">
                             <div className="search-area mb-3">
                                 <div className="row">
-                                    <div className="col-md-3">
+                                    <div className="col-md-4">
                                         <label className={'w-100'}>
-                                            <h6>Name</h6>
+                                            <h6>Search</h6>
                                             <input className="form-control form-control-sm"
-                                                   type="text" name={"search"} onChange={handleInput} value={input.search} />
+                                                   type="text" name={"search"} onChange={handleInput} value={input.search} placeholder="Name , email , phone" />
                                         </label>
                                     </div>
-                                    <div className="col-md-3">
-                                        <label className={'w-100'}>
-                                            <h6>Status</h6>
-                                            <select className= "form-select form-select-sm"name={"status"}value={input.status} onChange={handleInput} >
-                                                <option value={1}> Active</option>
-                                                <option value={0}> Inactive</option>
 
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div className="col-md-2">
-                                        <label className={'w-100'}>
-                                            <h6>Order Direction</h6>
-                                            <select className= "form-select  form-select-sm"name={"direction"}value={input.direction} onChange={handleInput} >
-                                                <option value="asc" > ASC</option>
-                                                <option value="desc" > DESC</option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                    <div className="col-md-2">
+                                    <div className="col-md-4">
                                         <label className={'w-100'}>
                                             <h6>Per Page</h6>
                                             <select className= "form-select  form-select-sm" name={"per_page"}value={input.per_page} onChange={handleInput} >
@@ -147,6 +132,10 @@ const SupplierList = () => {
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                        <th>Area</th>
+                                        <th>Address</th>
                                         <th>Logo</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -161,6 +150,10 @@ const SupplierList = () => {
                                                     <tr key={index}>
                                                         <td>{ startFrom + index }</td>
                                                         <td>{supplier.name}</td>
+                                                        <td>{supplier.email}</td>
+                                                        <td>{supplier.contact}</td>
+                                                        <td>{supplier.address.area}</td>
+                                                        <td>{supplier.address.address}</td>
                                                         <td>  <img style={{ width:"40px"}} src={supplier.logo} /> </td>
                                                         <td>{supplier.status == 1 ? <strong style={{ color:"green" }}>Active</strong> : <strong style={{ color:"red" }}>Inactive </strong> }</td>
                                                         <td>
@@ -174,13 +167,13 @@ const SupplierList = () => {
                                     }
                                 </table>
                             </div>
-                            {/*<ViewSupplier*/}
-                            {/*    show={modalShow}*/}
-                            {/*    onHide={() => setModalShow(false)}*/}
-                            {/*    size={''}*/}
-                            {/*    modal_title={" Show Supplier"}*/}
-                            {/*    supplier={supplier}*/}
-                            {/*/>*/}
+                            <ViewSupplier
+                                show={modalShow}
+                                onHide={() => setModalShow(false)}
+                                size={''}
+                                modal_title={" Show Supplier"}
+                                supplier={supplier}
+                            />
                         </div>
                         <div className="card-footer">
                             <nav className="pagination-sm">

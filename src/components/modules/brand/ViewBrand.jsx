@@ -10,8 +10,7 @@ const ViewBrand = (props) => {
                 {...props}
                 size={props.size}
                 aria-labelledby="category-details-modal"
-
-            >
+              >
                 <Modal.Header closeButton>
                     <Modal.Title id="category-details-modal">
                         <h4>{props.modal_title}</h4>
