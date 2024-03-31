@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Constants from "../../../Constants";
@@ -15,7 +15,7 @@ const Login = () => {
     const handleInput = (e)=>{
         setInput(prevState => ({...prevState,[e.target.name] : e.target.value }));
     }
-
+  // console.log('Login:',input);
     const handleLogin = (e)=>{
         e.preventDefault();
         setIsloading(true);
@@ -25,11 +25,17 @@ const Login = () => {
                 localStorage.name = res.data.name;
                 localStorage.email = res.data.email;
                 localStorage.phone = res.data.phone;
-                localStorage.role_id = res.data.role_id;
+                localStorage.role_id = res.data.user_type;
+                localStorage.user_type = res.data.user_type;
                 localStorage.token = res.data.token;
                 localStorage.photo = res.data.photo;
+                if (res.data.user_type == 2){
+                    localStorage.branch = JSON.stringify(res.data.branch[0]) ;
+                }else{
+                    localStorage.branch = null;
+                }
                 setIsloading(false);
-                window.location.reload();
+               window.location.reload();
             }).catch(errors =>{
             setIsloading(false);
                 if (errors.response.status == 422){
@@ -65,6 +71,17 @@ const Login = () => {
                                                        <label htmlFor="inputPassword">Password</label>
                                                        <p style={{color:"red"}}>{errors.password != undefined ? errors.password[0] : null}</p>
                                                    </div>
+
+                                                   <div className={errors.user_type != undefined ? 'form-form-select mb-3 is-invalid' : 'form-form-select mb-3' }>
+                                                       <select className="form-select" name={'user_type'} onChange={handleInput} value={input.user_type}>
+                                                           <option>User type</option>
+                                                           <option value="1">Admin</option>
+                                                           <option value="2">Sales Manager</option>
+                                                      </select>
+                                                       <p style={{color:"red"}}>{errors.user_type != undefined ? errors.user_type[0] : null}</p>
+                                                   </div>
+
+
                                                    <div style={{ textAlign:"center"}}>
                                                        <button onClick={handleLogin} type="submit" className="btn-lg btn btn-primary" dangerouslySetInnerHTML={{__html: isLoading ? ' <span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Logging...' : 'Login'}}  />
                                                    </div>

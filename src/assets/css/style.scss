@@ -1,3 +1,55 @@
 @import "variables";
 @import "mixin";
 @import "global";
+
+.photo-upload-container{
+  height: 150px;
+  width: 150px;
+  border: 1px solid silver;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 10px;
+  background: blueviolet;
+
+  .icon{
+    @include center;
+     color: white;
+    cursor: pointer;
+    @include transition;
+
+    .fa-camera{
+      &:hover{
+        transform: scale(1.3);
+      }
+    }
+
+  }
+}
+.primary-photo{
+  border: 2px solid violet;
+  &:after{
+    content: 'Primary';
+  }
+}
+.preview-photo{
+  cursor: pointer;
+}
+
+.quantity-button{
+  border: none;
+  background: blue;
+  border-radius: 5px;
+  padding: 0 8px;
+  color: white;
+  margin: 0 10px;
+  &:disabled{
+    background: #9cbdea;
+  }
+}
+.product-container{
+  background: #f4e8ff;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+

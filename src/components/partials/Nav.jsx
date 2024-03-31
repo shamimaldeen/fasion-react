@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 const Nav = () => {
     const  navigate = useNavigate();
-
+    const [branch, setBranch] = useState({})
 
 
     const handleLogout=()=>{
@@ -25,12 +25,8 @@ const Nav = () => {
                 axios.post(`${Constants.BASE_URL}/logout`)
                     .then(res=> {
                         GlobalFunction.logout();
-                        navigate('/')
-                        window.location.reload();
                     }).catch(errors =>{
                     GlobalFunction.logout();
-                    navigate('/')
-                    window.location.reload();
                 });
             }
         })
@@ -39,9 +35,18 @@ const Nav = () => {
         $('body').toggleClass('sb-sidenav-toggled')
     }
 
+    useEffect(()=>{
+        if (localStorage.branch != undefined){
+            setBranch( JSON.parse(localStorage.branch))
+        }
+
+    },[])
+
     return (
         <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <Link className="navbar-brand ps-3" to="/">Fasion Shop</Link>
+            <Link className="navbar-brand ps-3" to="/">
+                <img src={process.env.PUBLIC_URL + '/fasion.png'} alt="Logo" style={{width:50}} />
+                Fasion Shop</Link>
             <button onClick={handleToogle} className="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 className="fas fa-bars"></i></button>
             <form className="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
@@ -55,7 +60,7 @@ const Nav = () => {
             <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li className="nav-item dropdown">
                     <p className="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false"> {localStorage.name != undefined ? localStorage.name : null  } <i className="fas fa-user fa-fw"></i></p>
+                       data-bs-toggle="dropdown" aria-expanded="false"> <strong>{branch !=undefined ? branch.name + ' |'  :null} </strong> {localStorage.name != undefined ? localStorage.name : null  } <i className="fas fa-user fa-fw"></i></p>
                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a className="dropdown-item" href="#!">Settings</a></li>
                         <li><a className="dropdown-item" href="#!">Activity Log</a></li>

@@ -17,6 +17,21 @@ import AddSupplier from "../modules/supplier/AddSupplier";
 import EditSupplier from "../modules/supplier/EditSupplier";
 import ProductAttribute from "../modules/product-attribute/ProductAttribute";
 import ProductAttributeValue from "../modules/product-attribute/ProductAttributeValue";
+import AddProduct from "../modules/product/AddProduct";
+import AddProductPhoto from "../modules/product/AddProductPhoto";
+import ProductList from "../modules/product/ProductList";
+import ViewProduct from "../modules/product/ViewProduct";
+import AddShop from "../modules/shop/AddShop";
+import ShopList from "../modules/shop/ShopList";
+import EditShop from "../modules/shop/EditShop";
+import AddSalesManager from "../modules/sales-manager/AddSalesManager";
+import SalesManagerList from "../modules/sales-manager/SalesManagerList";
+import EditSalesManager from "../modules/sales-manager/EditSalesManager";
+import CreateOrder from "../modules/order/CreateOrder";
+import CustomerList from "../modules/customer/CustomerList";
+import OrderList from "../modules/order/OrderList";
+import OrderDetails from "../modules/order/OrderDetails";
+
 
 
 
@@ -93,6 +108,71 @@ const ProjectRouter = createBrowserRouter([
                     path:'/product/attribute/value',
                     element:<ProductAttributeValue />
                 },
+
+                {
+                    path:'/product/create',
+                    element:<AddProduct />
+                },
+
+                {
+                    path:'/product/photo/:id',
+                    element:<AddProductPhoto />
+                },
+
+                {
+                    path:'/product',
+                    element:<ProductList />
+                },
+
+                {
+                    path:'/product/view/:id',
+                    element:<ViewProduct />
+                },
+
+                {
+                    path:'/shop/create',
+                    element:<AddShop />
+                },
+                {
+                    path:'/shop/edit/:id',
+                    element:<EditShop />
+                },
+                {
+                    path:'/shop',
+                    element:<ShopList />
+                },
+
+            {
+                path:'/sales-manager/create',
+                element:<AddSalesManager />
+            },
+            {
+                path:'/sales-manager',
+                element:<SalesManagerList />
+            },
+            {
+                path:'/sales-manager/edit/:id',
+                element:<EditSalesManager />
+            },
+
+            {
+                path:'/order/create',
+                element:<CreateOrder />
+            },
+            {
+                path:'/order',
+                element:<OrderList />
+            },
+            {
+                path:'/order/details/:id',
+                element:<OrderDetails />
+            },
+            {
+                path:'/customer',
+                element:<CustomerList />
+            },
+
+
 
                {
                 path:'/error',

@@ -17,6 +17,7 @@ const AddSubCategory = () => {
     const [isLoading , setIsloading] = useState(false);
     const [categories , setCategories] = useState([]);
     const navigate = useNavigate();
+
     const getAllCategory =()=>{
         setIsloading(true);
         axios.get(`${Constants.BASE_URL}/get-all-category`)
@@ -28,7 +29,7 @@ const AddSubCategory = () => {
     useEffect(()=>{
         getAllCategory();
     },[])
-    const handleInput = (e)=>{
+    const handleInputsubCatefory = (e)=>{
         if (e.target.name == 'name'){
             let  slug = e.target.value;
             slug = slug.toLowerCase();
@@ -111,7 +112,7 @@ const AddSubCategory = () => {
                                                 <select className={errors.category_id != undefined ? "form-select is-invalid" : "form-select"}
                                                         name={"category_id"}
                                                         value={input.category_id}
-                                                        onChange={handleInput} >
+                                                        onChange={handleInputsubCatefory} >
                                                     <option value={""} > Select One</option>
                                                     {
                                                         categories && categories.map((category,index)=> (
@@ -127,7 +128,7 @@ const AddSubCategory = () => {
                                             <label className={'w-100'}>
                                                 <h6>Name</h6>
                                                 <input className={errors.name != undefined ? "form-control is-invalid" : "form-control"}
-                                                       type="text" name={"name"} onChange={handleInput} value={input.name} placeholder={'Enter sub category name'} required />
+                                                       type="text" name={"name"} onChange={handleInputsubCatefory} value={input.name} placeholder={'Enter sub category name'} required />
                                                 <p style={{color:"red"}}>{errors.name != undefined ? errors.name[0] : null}</p>
                                             </label>
                                         </div>
@@ -137,7 +138,7 @@ const AddSubCategory = () => {
                                                 <select className={errors.status != undefined ? "form-select is-invalid" : "form-select"}
                                                         name={"status"}
                                                         value={input.status}
-                                                        onChange={handleInput}
+                                                        onChange={handleInputsubCatefory}
                                                         placeholder={'Enter sub category status'} >
                                                     <option value={1} > Active</option>
                                                     <option value={0} > Inactive</option>
@@ -150,7 +151,7 @@ const AddSubCategory = () => {
                                               <label className={'w-100'}>
                                                   <h6>Description</h6>
                                                   <textarea className={errors.description != undefined ? "form-control is-invalid" : "form-control"}
-                                                            name={"description"} onChange={handleInput}   >  </textarea>
+                                                            name={"description"} onChange={handleInputsubCatefory}   >  </textarea>
                                                   <p style={{color:"red"}}>{errors.description != undefined ? errors.description[0] : null}</p>
                                               </label>
                                           </div>
@@ -162,7 +163,7 @@ const AddSubCategory = () => {
                                            <label className={'w-100'}>
                                                <h6>Serial</h6>
                                                <input className={errors.serial != undefined ? "form-control is-invalid" : "form-control"}
-                                                      type="number"  name={"serial"} onChange={handleInput} value={input.serial}  placeholder={'Enter sub category serial'} required />
+                                                      type="number"  name={"serial"} onChange={handleInputsubCatefory} value={input.serial}  placeholder={'Enter sub category serial'} required />
                                                <p style={{color:"red"}}>{errors.serial != undefined ? errors.serial[0] : null}</p>
                                            </label>
 
@@ -172,7 +173,7 @@ const AddSubCategory = () => {
                                             <label className={'w-100'}>
                                                 <h6>Slug</h6>
                                                 <input className={errors.slug != undefined ? "form-control is-invalid" : "form-control"}
-                                                       type="text"  name={"slug"} onChange={handleInput} value={input.slug}  placeholder={'Enter sub category slug'} />
+                                                       type="text"  name={"slug"} onChange={handleInputsubCatefory} value={input.slug}  placeholder={'Enter sub category slug'} />
                                                 <p style={{color:"red"}}>{errors.slug != undefined ? errors.slug[0] : null}</p>
                                             </label>
                                         </div>

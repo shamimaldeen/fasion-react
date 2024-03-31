@@ -40,6 +40,7 @@ const AddCategory = () => {
 
     const  categoryForm = async ()=>
     {
+        //console.log(input);
         const  formData = new FormData();
         formData.append('name',input.name);
         formData.append('slug',input.slug);
@@ -59,7 +60,7 @@ const AddCategory = () => {
                 toast:true,
                 timer: 1500
               })
-            navigate('/category');
+           // navigate('/category');
             }).catch(errors =>{
                setIsloading(false);
                 Swal.fire({
