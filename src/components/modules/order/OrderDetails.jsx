@@ -77,13 +77,11 @@ const OrderDetails = () => {
                                                    <th>Sales Manager</th>
                                                    <td>{order.sales_manager?.name} - {order.sales_manager?.contact}</td>
                                                </tr>
-
                                                <tr>
                                                    <th>Shop Address</th>
                                                    <td>{order.shop?.address.address}</td>
                                                </tr>
                                             </tbody>
-
                                         </table>
                                     </div>
                                 </div>
@@ -97,7 +95,6 @@ const OrderDetails = () => {
                                     <div className="card-body">
                                         <table className={'table table-hover table-bordered table-striped'}>
                                             <tbody>
-
                                             <tr>
                                                 <th className={'align-middle'}>Order Number</th>
                                                 <td className={'align-middle'}>{order.order_number}</td>
@@ -110,7 +107,6 @@ const OrderDetails = () => {
                                                 <th className={'align-middle'}>Payment Status</th>
                                                 <td className={'align-middle'}>{order.payment_status}</td>
                                             </tr>
-
                                             <tr>
                                                 <th className={'align-middle'}>Payment Method</th>
                                                 <td className={'align-middle'}>{order.payment_method?.name}</td>
@@ -119,14 +115,33 @@ const OrderDetails = () => {
                                             </tr>
 
                                             <tr>
+                                                <th className={'align-middle'}>Sub Total</th>
+                                                <td className={'align-middle'}>{order.sub_total}৳</td>
+                                                <th className={'align-middle'}>Discount</th>
+                                                <td className={'align-middle'}>{order.discount}৳</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th className={'align-middle'}>Quantity</th>
+                                                <td className={'align-middle'}>{order.quantity}</td>
+                                                <th className={'align-middle'}>Total</th>
+                                                <td className={'align-middle'}><strong className={'text-primary'}>{order.total}৳</strong></td>
+                                            </tr>
+
+                                            <tr>
+                                                <th className={'align-middle'}>Paid Amount</th>
+                                                <td className={'align-middle'}><strong className={'text-success'}>{order.paid_amount}৳</strong></td>
+                                                <th className={'align-middle'}>Due Amount</th>
+                                                <td className={'align-middle'}><strong className={'text-danger'}>{order.due_amount}৳</strong></td>
+                                            </tr>
+
+                                            <tr>
                                                 <th className={'align-middle'}>Order Placed</th>
                                                 <td className={'align-middle'}>{order.created_at}</td>
                                                 <th className={'align-middle'}>Order Updated</th>
                                                 <td className={'align-middle'}>{order.updated_at}</td>
                                             </tr>
-
                                             </tbody>
-
                                         </table>
                                     </div>
 
@@ -165,7 +180,7 @@ const OrderDetails = () => {
                                                          </td>
                                                          <td className={'align-middle'}>
                                                              <p>
-                                                                 <span>brand:{product.brand}</span> <br/>
+                                                                 <span>Brand:{product.brand}</span> <br/>
                                                                  <span>Category:{product.category}</span><br/>
                                                                  <span>Sub Category:{product.sub_category}</span>
                                                              </p>
@@ -183,6 +198,58 @@ const OrderDetails = () => {
 
                                                      </tr>
                                                  )) }
+
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="col-md-12 mt-4">
+                                <div className="card">
+                                    <div className="card-header">
+                                        <h5>Transactions Details</h5>
+                                    </div>
+                                    <div className="card-body">
+                                        <table className={'table table-hover table-bordered table-striped'}>
+                                            <thead>
+                                            <tr>
+                                                <th>Sl</th>
+                                                <th>Trans Id</th>
+                                                <th>Amount</th>
+                                                <th>Customer</th>
+                                                <th>Payment Method</th>
+                                                <th>Status</th>
+                                                <th>Date</th>
+                                                <th>Transaction By</th>
+                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+                                            {
+                                                order?.transactions && order?.transactions.map((transaction,index)=>(
+                                                    <tr>
+                                                        <td className={'align-middle'}> { ++index}</td>
+                                                        <td className={'align-middle'}> {transaction.trans_id}</td>
+                                                        <td className={'align-middle'}> {transaction.amount} ৳</td>
+                                                        <td className={'align-middle'}>
+                                                            <p>
+                                                                <span>Name : {transaction.customer_name}</span> <br/>
+                                                                <span>Phone : {transaction.customer_phone}</span>
+                                                            </p>
+                                                        </td>
+                                                        <td className={'align-middle'}>
+                                                            <p>
+                                                                <span>Payment Method : {transaction.payment_method}</span> <br/>
+                                                                <span>Account No : {transaction.account_number}</span> <br/>
+                                                            </p>
+                                                        </td>
+                                                        <td className={'align-middle'}>{transaction.status}</td>
+                                                        <td className={'align-middle'}>{transaction.created_at}</td>
+                                                        <td className={'align-middle'}>{transaction.transaction_by}</td>
+                                                    </tr>
+                                                )) }
 
                                             </tbody>
 

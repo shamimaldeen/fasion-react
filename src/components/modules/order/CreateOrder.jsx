@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import Breadcrumb from "../../partials/Breadcrumb";
-import {Alert} from "react-bootstrap";
 import CardHeader from "../../partials/CardHeader";
-import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Constants from "../../../Constants";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ShowOrderConfirmation from "./ShowOrderConfirmation";
 import Swal from "sweetalert2";
 
@@ -29,6 +27,7 @@ const CreateOrder = () => {
     const [activePage,setActivePage] = useState(1);
     const [errors , setErrors] = useState([]);
     const [isLoading , setIsloading] = useState(false);
+    const navigate = useNavigate();
 
     const [orderSummary , setOrderSummary] = useState({
         items:0,
@@ -215,7 +214,9 @@ const CreateOrder = () => {
                 })
                 if (res.data.flag != undefined){
                     setModalOrderShow(false)
+                    navigate(`/order/details/${res.data.order_id}`);
                 }
+
             }).catch(errors =>{
             setIsloading(false);
         });
