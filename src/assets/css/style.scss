@@ -51,5 +51,26 @@
   border-radius: 5px;
   margin: 5px 0;
 }
+.print-area{
+  box-shadow: 0 0 10px silver;
+  margin: 25px auto 25px auto;
+  padding: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  .barcode-items{
+    width: 33.33%;
+    padding: 18px;
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid #e7e2e2;
+    height: fit-content;
+  }
+
+}
+.deleted{
+  color: red;
+  text-decoration: line-through;
+  font-size: 12px;
+}
 
 

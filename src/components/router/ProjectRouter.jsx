@@ -31,6 +31,7 @@ import CreateOrder from "../modules/order/CreateOrder";
 import CustomerList from "../modules/customer/CustomerList";
 import OrderList from "../modules/order/OrderList";
 import OrderDetails from "../modules/order/OrderDetails";
+import ProductBarcode from "../modules/barcode/ProductBarcode";
 
 
 
@@ -168,11 +169,16 @@ const ProjectRouter = createBrowserRouter([
                 element:<OrderDetails />
             },
             {
-                path:'/customer',
-                element:<CustomerList />
+                path:'/generate-barcode',
+                element:<ProductBarcode />
             },
 
 
+
+            {
+                path:'/customer',
+                element:<CustomerList />
+            },
 
                {
                 path:'/error',

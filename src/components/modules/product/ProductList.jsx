@@ -69,7 +69,7 @@ const ProductList = () => {
         setIsloading(true);
         axios.get(`${Constants.BASE_URL}/product?page=${pageNumber}&search=${input.search}&status=${input.status}&direction=${input.direction}&per_page=${input.per_page}`)
             .then(res=> {
-                setProducts(res.data.data);
+                 setProducts(res.data.data);
                 setItemsCountPerPage(res.data.meta.per_page);
                 setTotalItemsCount(res.data.meta.total);
                 setStartFrom(res.data.meta.from);
