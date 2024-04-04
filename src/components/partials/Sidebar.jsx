@@ -167,6 +167,13 @@ const Sidebar = () => {
                             </Link>
 
 
+                            <div className="sb-sidenav-menu-heading">Reports</div>
+                            <Link className="nav-link" to="/report">
+                                <div className="sb-nav-link-icon"><i className="fas fa-columns"></i></div>
+                                Report
+                            </Link>
+
+
                             <div className="sb-sidenav-menu-heading">Customers</div>
                             <a className="nav-link collapsed" href="#" data-bs-toggle="collapse"
                                data-bs-target="#customers" aria-expanded="false" aria-controls="collapseLayouts">

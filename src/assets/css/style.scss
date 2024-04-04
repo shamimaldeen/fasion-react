@@ -51,9 +51,14 @@
   border-radius: 5px;
   margin: 5px 0;
 }
+
+.barcode-wrapper{
+   box-shadow: 0 0 10px silver;
+   margin: 25px auto 25px auto;
+  width: 595px;
+  height: 842px;
+}
 .print-area{
-  box-shadow: 0 0 10px silver;
-  margin: 25px auto 25px auto;
   padding: 36px;
   display: flex;
   flex-wrap: wrap;
@@ -71,6 +76,18 @@
   color: red;
   text-decoration: line-through;
   font-size: 12px;
+}
+
+.report-card{
+  box-shadow:0 0 5px silver;
+  @include transition;
+  &:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  h6{
+    font-weight: 100;
+  }
 }
 
 

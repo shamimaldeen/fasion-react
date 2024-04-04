@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Swal from "sweetalert2";
 import axios from "axios";
 import Constants from "../../../Constants";
@@ -6,8 +6,12 @@ import Breadcrumb from "../../partials/Breadcrumb";
 import CardHeader from "../../partials/CardHeader";
 import Button from "react-bootstrap/Button";
 import Barcode from 'react-barcode';
+import BarCodePage from "./BarCodePage";
+import {useReactToPrint} from "react-to-print";
 
 const ProductBarcode = () => {
+
+    const componentRef = useRef();
 
     const [input , setInput] = useState({
         'name' : '',
@@ -24,6 +28,10 @@ const ProductBarcode = () => {
               height:842
           }
         });
+
+    const handlePrint = useReactToPrint({
+        content:()=>componentRef.current,
+    });
 
 
     const handleInput = (e)=>{
@@ -76,7 +84,7 @@ const ProductBarcode = () => {
                 <div className="col-md-12">
                     <div className="card mb-4">
                         <div className="card-header">
-                            <CardHeader title={'Generate ProductBarcode'}link={''} button_text={''} icon={''} />
+                            <CardHeader title={'Generate ProductBarcode'}link={''} button_text={''} icon={''} hide={true} />
                         </div>
                         <div className="card-body">
                             <div className="search-area mb-3">
@@ -130,21 +138,15 @@ const ProductBarcode = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="print-area" style={{width:paperSize.a4.width,height:paperSize.a4.height}}>
 
-                                {
-                                    products && products.map((product,index)=>(
-                                        <div className={'barcode-items'} key={index}>
-                                            <span><strong>{product.name}</strong></span> <br/>
-                                             <span> Price : {product?.selling_price?.discount != 0 ? product?.selling_price?.price + product?.selling_price?.symbol:'' } <span className={product?.selling_price?.discount != 0 ? 'deleted ms-1':''}> {product.price}</span></span>
-                                         <div className="barcode">
-                                             <Barcode value={product.sku} width={1} height={50} />
-                                         </div>
-
-                                        </div>
-                                    ))
-                                }
-
+                            <div className="barcode-printshow" style={{display:Object.keys(products).length > 0 ? 'block':'none'}} >
+                                <div className="barcode-wrapper">
+                                    <button className={'float-end mt-2'} onClick={handlePrint}>Print</button>
+                                    <BarCodePage
+                                        products = {products}
+                                        paperSize = {paperSize}
+                                        ref={componentRef} />
+                                </div>
                             </div>
                         </div>
                     </div>

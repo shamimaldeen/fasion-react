@@ -32,6 +32,7 @@ import CustomerList from "../modules/customer/CustomerList";
 import OrderList from "../modules/order/OrderList";
 import OrderDetails from "../modules/order/OrderDetails";
 import ProductBarcode from "../modules/barcode/ProductBarcode";
+import Report from "../modules/report/Report";
 
 
 
@@ -172,9 +173,10 @@ const ProjectRouter = createBrowserRouter([
                 path:'/generate-barcode',
                 element:<ProductBarcode />
             },
-
-
-
+            {
+                path:'/report',
+                element:<Report />
+            },
             {
                 path:'/customer',
                 element:<CustomerList />
