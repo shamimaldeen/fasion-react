@@ -9,6 +9,7 @@ import Loader from "../../partials/Loader";
 import {Link} from "react-router-dom";
 import NoDataFound from "../../partials/NoDataFound";
 import Pagination from "react-js-pagination";
+import GlobalFunction from "../../../GlobalFunction";
 
 const ProductList = () => {
 
@@ -86,7 +87,7 @@ const ProductList = () => {
                 <div className="col-md-12">
                     <div className="card mb-4">
                         <div className="card-header">
-                            <CardHeader title={'Product List'} link={'/product/create'} button_text={'Add Product'} icon={'fa-add'} />
+                            <CardHeader title={'Product List'} link={'/product/create'} button_text={'Add Product'} icon={'fa-add'} hide={true} />
                         </div>
                         <div className="card-body">
                             <div className="search-area mb-3">
@@ -195,9 +196,14 @@ const ProductList = () => {
                                                         </td>
                                                         <td>
                                                             <Link to={`/product/view/${product.id}`}> <button className={'btn btn-sm btn-info my-1'}><i className="fa-solid fa-eye"></i></button></Link>
-                                                            <Link to='#'> <button className={'btn btn-sm btn-warning my-1 mx-1'}><i className="fa-solid fa-pen-to-square"></i></button></Link>
-                                                            <button className={'btn btn-sm btn-danger my-1'} onClick={() => handleProductDelete(product.id)} ><i className="fa-solid fa-trash"></i></button>
-                                                        </td>
+                                                            { GlobalFunction.isAdmin() ?
+                                                            <>
+                                                                <Link to='#'> <button className={'btn btn-sm btn-warning my-1 mx-1'}><i className="fa-solid fa-pen-to-square"></i></button></Link>
+                                                                <button className={'btn btn-sm btn-danger my-1'} onClick={() => handleProductDelete(product.id)} ><i className="fa-solid fa-trash"></i></button>
+                                                            </>
+                                                            :null
+                                                          }
+                                                            </td>
                                                     </tr>
                                                 )) : <NoDataFound /> }
                                             </tbody>

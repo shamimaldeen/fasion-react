@@ -46,7 +46,7 @@ const ProjectRouter = createBrowserRouter([
         children:[
                 {
                     path:'/',
-                    element:<Dashboard />
+                    element:<Report />
                 },
                 {
                     path:'/category',
